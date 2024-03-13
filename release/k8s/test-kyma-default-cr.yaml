@@ -1,0 +1,72 @@
+apiVersion: "connectivityproxy.sap.com/v1"
+kind: ConnectivityProxy
+metadata:
+  name: test-connectivity-proxy
+spec:
+  config:
+    highAvailabilityMode: "off"
+    integration:
+      auditlog:
+        mode: console
+      connectivityService:
+        serviceCredentialsKey: "service_key"
+    serviceChannels:
+      enabled: true
+    multiRegionMode:
+      enabled: false
+    servers:
+      businessDataTunnel:
+        externalHost: "CHANGE_IT"
+        externalPort: 443
+      proxy:
+        http:
+          enableProxyAuthorization: false
+          enabled: true
+          port: 20003
+        rfcAndLdap:
+          enableProxyAuthorization: false
+          enabled: true
+          port: 20001
+        socks5:
+          enableProxyAuthorization: false
+          enabled: true
+          port: 20004
+    subaccountId: "CHANGE_IT"
+    subaccountSubdomain: "CHANGE_IT"
+    tenantMode: dedicated
+  deployment:
+    image:
+      registry: "docker.io"
+      repository: "sapse/connectivity-proxy"
+      tag: "2.11.0"
+      pullPolicy: "IfNotPresent"
+    utilityImage:
+      registry: "docker.io"
+      repository: "alpine"
+      tag: "3.18.0"
+      pullPolicy: "IfNotPresent"
+    replicaCount: 1
+    resources:
+      maxFileDescriptorCount: 64000
+      limits:
+        cpu: "1"
+        memory: "1024M"
+      requests:
+        cpu: "0.1"
+        memory: "256M"
+    restartWatcher:
+      enabled: true
+  ingress:
+    className: istio
+    tls:
+      secretName: "business-host-tls-secret"
+    timeouts:
+      proxy:
+        # All timeouts are in seconds
+        connect: 20
+        read: 120
+        send: 120
+  secretConfig:
+    integration:
+      connectivityService:
+        secretName: connectivity-proxy-service-key

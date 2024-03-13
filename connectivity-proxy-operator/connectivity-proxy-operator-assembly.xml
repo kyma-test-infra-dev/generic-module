@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<assembly>
+    <id>assembly</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <dependencySets>
+        <dependencySet>
+            <includes>
+                <include>com.sap.cloud.connectivity:operator-core:jar</include>
+                <include>com.sap.cloud.connectivity:connectivity-proxy-operator:jar</include>
+                <include>io.javaoperatorsdk:operator-framework:jar</include>
+                <include>io.fabric8:kubernetes-client:jar</include>
+                <include>io.fabric8:istio-client:jar</include>
+                <include>org.apache.httpcomponents:httpclient:jar</include>
+                <include>commons-codec:commons-codec:jar</include>
+                <include>org.apache.httpcomponents:httpcore:jar</include>
+                <include>org.apache.logging.log4j:log4j-slf4j-impl:jar</include>
+                <include>com.google.code.gson:gson:jar</include>
+                <include>org.bouncycastle:bc-fips:jar</include>
+                <include>org.bouncycastle:bcpkix-fips:jar</include>
+            </includes>
+            <outputDirectory>.</outputDirectory>
+            <unpack>false</unpack>
+            <useStrictFiltering>true</useStrictFiltering>
+            <useProjectArtifact>true</useProjectArtifact>
+            <useTransitiveDependencies>true</useTransitiveDependencies>
+            <useTransitiveFiltering>true</useTransitiveFiltering>
+        </dependencySet>
+    </dependencySets>
+</assembly>
